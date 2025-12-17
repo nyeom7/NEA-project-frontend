@@ -55,7 +55,7 @@ function Flashcardmanager() {
         }}
       >
         <li style={{ margin: "10px 15px" }}>
-          <h1>Flashcard Manager</h1>
+          <h1>ThomasCards</h1>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">
@@ -175,7 +175,7 @@ function Flashcardmanager() {
             <tr>
               <td
                 style={{
-                  maxWidth: "1px",
+                  maxWidth: "100px",
                   border: "1px solid #ccc",
                   padding: "7px",
                 }}
