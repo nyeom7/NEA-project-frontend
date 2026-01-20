@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Flashcardmanager() {
   // this is a react state, a feature of react - question is the variable, setQuestion is the function used to change the variable
@@ -8,6 +8,40 @@ function Flashcardmanager() {
   const [answer, setAnswer] = useState("");
   const [flashcards, setFlashcards] = useState([]);
 
+  useEffect(() => { loadFlashcards() }, [])
+
+  function loadFlashcards() {
+    //ajax request to GET /flashcards
+
+    // http://localhost:3000 frontend
+    // http://localhost:3001 backend
+
+    // http://localhost:3001/flashcards
+    //url 
+
+    fetch('http://localhost:3001/flashcards')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        setFlashcards(data)
+      })
+
+  }
+
+  function getCurrentDateTime() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   function addFlashcard(e) {
     e.preventDefault();
     if (!question || !answer) {
@@ -15,7 +49,12 @@ function Flashcardmanager() {
       //the code stops if there is no question or no answer
       return;
     }
-    const newCard = { question, answer };
+    const newCard = {
+      question,
+      answer,
+      date: getCurrentDateTime(),
+      user_id: 1,
+    };
     // example list destructuring
     // list = [1,2,3]
     // ...list = 1,2,3
@@ -24,6 +63,21 @@ function Flashcardmanager() {
     setQuestion("");
     setAnswer("");
     toggleElement("newFlashCardForm");
+
+    fetch('http://localhost:3001/flashcards/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newCard),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data here
+      })
+      .catch(error => {
+        // Handle any errors
+      });
   }
 
   function togglePopup() {
@@ -58,17 +112,17 @@ function Flashcardmanager() {
           <h1>ThomasCards</h1>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">
+          <a class="nav-link active" aria-current="page" href="/">
             Home
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="/">
             Link
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="/">
             Link
           </a>
         </li>
@@ -128,7 +182,7 @@ function Flashcardmanager() {
           Add flashcard
         </button>
       </form>
-      <button className="btn btn-primary" onClick={togglePopup} style={{margin: "10px"}}>
+      <button className="btn btn-primary" onClick={togglePopup} style={{ margin: "10px" }}>
         Add New Question
       </button>
       <table
