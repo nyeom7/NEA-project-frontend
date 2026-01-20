@@ -99,39 +99,6 @@ function Flashcardmanager() {
 
   return (
     <div style={{ background: "#B3DEC1", height: "100vh" }}>
-      <ul
-        class="nav"
-        style={{
-          background: "#373f51",
-          color: "white",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <li style={{ margin: "10px 15px" }}>
-          <h1>ThomasCards</h1>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">
-            Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">
-            Link
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">
-            Link
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">
-            Disabled
-          </a>
-        </li>
-      </ul>
       <form
         // forms are submitted when you press a button inside them, onSubmit defines what function is called, line 9 prevents default thing from happening.
         onSubmit={addFlashcard}
