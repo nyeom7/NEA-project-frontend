@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Target links inside a specific header or all headers */
+h1 a, h2 a, h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Optional: Make it look clickable on hover */
+h1 a:hover, h2 a:hover {
+    text-decoration: underline;
+    color: white; /* Or any other color */
+}

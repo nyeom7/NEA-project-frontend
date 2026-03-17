@@ -8,6 +8,7 @@ function Flashcardmanager() {
   const [answer, setAnswer] = useState("");
   const [flashcards, setFlashcards] = useState([]);
 
+  //this runs on page load
   useEffect(() => { loadFlashcards() }, [])
 
   function loadFlashcards() {
